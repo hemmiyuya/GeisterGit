@@ -14,11 +14,12 @@ public class BoardManager : MonoBehaviour
     /// <summary>
     /// マス目総数
     /// </summary>
-    private const int _totalPixel = 36;
+    private int _totalPixel = 0;
     /// <summary>
     /// ボードの配列
     /// </summary>
     [SerializeField] public int[] ArrayBoard { get; private set; } = null;
+    private int[] _goalIndex = { 0, 7,40,47 };
     /// <summary>
     /// ボード配列のオブジェクト
     /// </summary>
@@ -81,6 +82,7 @@ public class BoardManager : MonoBehaviour
     {
         Width = width;
         Height = height;
+        _totalPixel = Width * Height;
         ArrayBoard = new int[Width * Height];
         _arrayBoardObject = new GameObject[Width * Height];
         _arrayPixel = new GameObject[Width * Height];
@@ -89,7 +91,15 @@ public class BoardManager : MonoBehaviour
         {
             for (int j = 0; j < width; j++)
             {
-                ArrayBoard[i * Width + j] = 0;
+
+                if ((i != 0 || i != Height)&&(j==0||j==Width))
+                {
+                    ArrayBoard[i * Width + j] = 99;
+                }
+                else
+                {
+                    ArrayBoard[i * Width + j] = 0;
+                }
             }
         }
         Dump(ArrayBoard);
@@ -104,11 +114,19 @@ public class BoardManager : MonoBehaviour
         {
             for (int j = 0; j < Width; j++)
             {
-                GameObject pixel = Instantiate(_pixel, ToPosition(j + i * Height), default);
-                _arrayPixel[j + i * Height] = pixel;
-                if ((j + i * Height > 0 && j + i * Height < 5) || (j + i * Height > 6 && j + i * Height < 11))
+                
+                //上下の列以外の端列は生成しない
+                if ((i == 0 || i == Height-1 || ( j != 0 && j != Width-1)))
                 {
-                    pixel.GetComponent<Pixel>().SetGeisterBefor();
+                    Debug.Log("i=" + i + "j=" + j);
+                    Debug.Log("index="+(j+i*Width));
+                    GameObject pixel = Instantiate(_pixel, ToPosition(j + i* Width), default);
+
+                    _arrayPixel[j + i * Height] = pixel;
+                    if ((j + i * Width > 1 && j + i * Width < 6) || (j + i * Width > 9 &&  j + i * Width < 14))
+                    {
+                        pixel.GetComponent<Pixel>().SetGeisterBefor();
+                    }
                 }
             }
         }
@@ -754,18 +772,40 @@ public class BoardManager : MonoBehaviour
         bool[] l_ClearFrag=new bool[2];
         l_ClearFrag[0] = false;
         l_ClearFrag[1] = false;
-        if (FindPlayerGeister(ArrayBoard, (int)BoardValue.PlayerRed).Count == 0 ||
-           FindPlayerGeister(ArrayBoard, (int)BoardValue.EnemyBlue).Count == 0)
+        if (FindPlayerGeister(l_ArrayBoard, (int)BoardValue.PlayerRed).Count == 0 ||
+           FindPlayerGeister(l_ArrayBoard, (int)BoardValue.EnemyBlue).Count == 0)
         {
+            //プレイヤーの赤が無くなる、もしくは敵の青がなくなる
             l_ClearFrag[0] = true;
             l_ClearFrag[1] = true;
         }
-
-        if(FindPlayerGeister(ArrayBoard,(int)BoardValue.PlayerBlue).Count==0||
-           FindPlayerGeister(ArrayBoard, (int)BoardValue.EnemyRed).Count == 0)
+        else
+        if(FindPlayerGeister(l_ArrayBoard, (int)BoardValue.PlayerBlue).Count==0||
+           FindPlayerGeister(l_ArrayBoard, (int)BoardValue.EnemyRed).Count == 0)
         {
+            //敵の赤が無くなる、もしくはプレイヤーの青がなくなる
             l_ClearFrag[0] = true;
             l_ClearFrag[1] = false;
+        }
+        else
+        {
+            //ゴールしている
+            for(var i = 0; i < 4; i++)
+            {
+                if (l_ArrayBoard[_goalIndex[i]] != 0)
+                {
+                    if (i<=1)
+                    {
+                        l_ClearFrag[0] = true;
+                        l_ClearFrag[1] = false;
+                    }
+                    else
+                    {
+                        l_ClearFrag[0] = true;
+                        l_ClearFrag[1] = true;
+                    }
+                }
+            }
         }
         return l_ClearFrag;
     }

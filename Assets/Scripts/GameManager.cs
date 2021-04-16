@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private BoardManager _boradManager=default;
 
-    private const int boardWidth=6;
+    private const int boardWidth=8;
     private const int boardHeight=6;
 
     /// <summary>

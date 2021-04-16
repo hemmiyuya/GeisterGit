@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{19482C5B-FFDA-346C-14FB-4CA4D85F1B38}</ProjectGuid>
+    <ProjectGuid>{6AB7E1B1-12F7-494B-A6F3-9FD272A95A05}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,10 +56,15 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AI\AIPLayOut.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\AI\Node.cs" />
+    <Compile Include="Assets\Scripts\AI\Evaluation.cs" />
+    <Compile Include="Assets\Scripts\ConstParamater.cs" />
     <Compile Include="Assets\Scripts\TouchManager.cs" />
     <Compile Include="Assets\Scripts\Geister.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
+    <Compile Include="Assets\Scripts\AI\AISearch.cs" />
     <Compile Include="Assets\Scripts\AI\AIGeisterMove.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerManeger.cs" />
@@ -67,13 +72,8 @@
     <Compile Include="Assets\Scripts\Pixel.cs" />
     <Compile Include="Assets\Outline\OutlinePostEffect.cs" />
     <Compile Include="Assets\Scripts\AI\AIManager.cs" />
-    <Compile Include="Assets\Scripts\BoardManager.cs" />
-    <Compile Include="Assets\Scripts\AI\AISearch.cs" />
-    <Compile Include="Assets\Scripts\AI\Node.cs" />
     <Compile Include="Assets\Scripts\AI\CreateNode.cs" />
-    <Compile Include="Assets\Scripts\ConstParamater.cs" />
-    <Compile Include="Assets\Scripts\AI\Evaluation.cs" />
-    <Compile Include="Assets\Scripts\AI\AIPLayOut.cs" />
+    <Compile Include="Assets\Scripts\BoardManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Outline\DrawSimple.shader" />

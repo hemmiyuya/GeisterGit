@@ -111,12 +111,12 @@ public class EnemyManager : MonoBehaviour
     {
         Debug.Log("セットガイスター");
         //配置する配列番号の範囲
-        int minValue1 = 25;
-        int maxValue1 = 28;
+        int minValue1 = 26;
+        int maxValue1 = 29;
         List<int> randomList1 = new List<int>();
 
-        int minValue2 = 31;
-        int maxValue2 = 34;
+        int minValue2 = 32;
+        int maxValue2 = 35;
         List<int> randomList2 = new List<int>();
 
         int colorMinValue = 0;
